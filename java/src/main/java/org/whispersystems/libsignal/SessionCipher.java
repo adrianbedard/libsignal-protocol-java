@@ -415,7 +415,18 @@ public class SessionCipher {
       throws InvalidMessageException
   {
     try {
-      Cipher cipher = getCipher(Cipher.DECRYPT_MODE, messageKeys.getCipherKey(), messageKeys.getIv());
+      
+		/* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: SessionCipher.java, Line: 317
+				byte[] plaintext=getPlaintext(messageKeys,ciphertextMessage.getBody());
+				 Information is passed through the method call via messageKeys to the formal param messageKeys of the method. This later results into a null pointer dereference.
+			File: SessionCipher.java, Line: 408
+				Cipher cipher=getCipher(Cipher.DECRYPT_MODE,messageKeys.getCipherKey(),messageKeys.getIv());
+				messageKeys is referenced in method invocation.
+		*/
+	Cipher cipher = getCipher(Cipher.DECRYPT_MODE, messageKeys.getCipherKey(), messageKeys.getIv());
       return cipher.doFinal(cipherText);
     } catch (IllegalBlockSizeException | BadPaddingException e) {
       throw new InvalidMessageException(e);
