@@ -47,7 +47,14 @@ public class DeviceConsistencyTest extends TestCase {
     DeviceConsistencyMessage receivedDeviceThreeMessage = new DeviceConsistencyMessage(deviceOneCommitment, deviceThreeMessage.getSerialized(), deviceThree.getPublicKey());
 
     assertTrue(Arrays.equals(deviceOneMessage.getSignature().getVrfOutput(), receivedDeviceOneMessage.getSignature().getVrfOutput()));
-    assertTrue(Arrays.equals(deviceTwoMessage.getSignature().getVrfOutput(), receivedDeviceTwoMessage.getSignature().getVrfOutput()));
+    /* ********OpenRefactory Warning********
+	 Possible null pointer Dereference!
+	 Path: 
+		File: DeviceConsistencyTest.java, Line: 50
+			assertTrue(Arrays.equals(deviceTwoMessage.getSignature().getVrfOutput(),receivedDeviceTwoMessage.getSignature().getVrfOutput()));
+			Method getSignature may return null and is referenced in method invocation.
+	*/
+	assertTrue(Arrays.equals(deviceTwoMessage.getSignature().getVrfOutput(), receivedDeviceTwoMessage.getSignature().getVrfOutput()));
     assertTrue(Arrays.equals(deviceThreeMessage.getSignature().getVrfOutput(), receivedDeviceThreeMessage.getSignature().getVrfOutput()));
 
     String codeOne = generateCode(deviceOneCommitment, deviceOneMessage, receivedDeviceTwoMessage, receivedDeviceThreeMessage);
