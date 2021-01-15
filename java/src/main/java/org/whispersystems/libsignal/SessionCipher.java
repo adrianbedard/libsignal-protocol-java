@@ -310,7 +310,17 @@ public class SessionCipher {
     MessageKeys    messageKeys       = getOrCreateMessageKeys(sessionState, theirEphemeral,
                                                               chainKey, counter);
 
-    ciphertextMessage.verifyMac(sessionState.getRemoteIdentityKey(),
+    /* ********OpenRefactory Warning********
+	 Possible null pointer Dereference!
+	 Path: 
+		File: SessionCipher.java, Line: 310
+			MessageKeys messageKeys=getOrCreateMessageKeys(sessionState,theirEphemeral,chainKey,counter);
+	
+		File: SessionCipher.java, Line: 315
+			ciphertextMessage.verifyMac(sessionState.getRemoteIdentityKey(),sessionState.getLocalIdentityKey(),messageKeys.getMacKey());
+			messageKeys is referenced in method invocation.
+	*/
+	ciphertextMessage.verifyMac(sessionState.getRemoteIdentityKey(),
                                 sessionState.getLocalIdentityKey(),
                                 messageKeys.getMacKey());
 
