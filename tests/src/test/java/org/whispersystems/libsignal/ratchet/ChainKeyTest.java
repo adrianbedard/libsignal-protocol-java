@@ -105,7 +105,14 @@ public class ChainKeyTest extends TestCase {
 
         assertTrue(Arrays.equals(chainKey.getKey(), seed));
         assertTrue(Arrays.equals(chainKey.getMessageKeys().getCipherKey().getEncoded(), messageKey));
-        assertTrue(Arrays.equals(chainKey.getMessageKeys().getMacKey().getEncoded(), macKey));
+        /* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: ChainKeyTest.java, Line: 101
+				assertTrue(Arrays.equals(chainKey.getMessageKeys().getMacKey().getEncoded(),macKey));
+				Method getMacKey may return null and is referenced in method invocation.
+		*/
+		assertTrue(Arrays.equals(chainKey.getMessageKeys().getMacKey().getEncoded(), macKey));
         assertTrue(Arrays.equals(chainKey.getNextChainKey().getKey(), nextChainKey));
         assertTrue(chainKey.getIndex() == 0);
         assertTrue(chainKey.getMessageKeys().getCounter() == 0);
