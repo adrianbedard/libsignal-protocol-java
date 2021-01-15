@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 public class GroupCipherTest extends TestCase {
 
@@ -83,7 +82,7 @@ public class GroupCipherTest extends TestCase {
     bobSessionBuilder.process(GROUP_SENDER, receivedAliceDistributionMessage);
 
     byte[] plaintext = new byte[1024 * 1024];
-    new Random().nextBytes(plaintext);
+    new SecureRandom().nextBytes(plaintext);
 
     byte[] ciphertextFromAlice = aliceGroupCipher.encrypt(plaintext);
     byte[] plaintextFromAlice  = bobGroupCipher.decrypt(ciphertextFromAlice);
