@@ -39,7 +39,30 @@ public class InMemoryIdentityKeyStore implements IdentityKeyStore {
   public boolean saveIdentity(SignalProtocolAddress address, IdentityKey identityKey) {
     IdentityKey existing = trustedKeys.get(address);
 
-    if (!identityKey.equals(existing)) {
+    /* ********OpenRefactory Warning********
+	 Possible null pointer Dereference!
+	 Path: 
+		File: SessionCipher.java, Line: 125
+			identityKeyStore.saveIdentity(remoteAddress,sessionState.getRemoteIdentityKey());
+			 Information is passed through the method call via sessionState.getRemoteIdentityKey() to the formal param identityKey of the method. This later results into a null pointer dereference.
+		File: InMemorySignalProtocolStore.java, Line: 42
+			IdentityKey identityKey
+			Variable identityKey is declared as a formal parameter.
+		File: InMemorySignalProtocolStore.java, Line: 43
+			return identityKeyStore.saveIdentity(address,identityKey);
+			 Information is passed through the method call via identityKey to the formal param identityKey of the method. This later results into a null pointer dereference.
+		File: InMemoryIdentityKeyStore.java, Line: 42
+			identityKey.equals(existing)
+			identityKey is referenced in method invocation.
+			The expression is enclosed inside an If statement.
+	 Fix:
+			identityKey is identified as null, but the argument passed to
+			the equals method is not. 
+			iCR fixes by calling equals method in the context of
+			the non-null expression. 
+	
+	*/
+	if (!existing.equals(identityKey)) {
       trustedKeys.put(address, identityKey);
       return true;
     } else {
