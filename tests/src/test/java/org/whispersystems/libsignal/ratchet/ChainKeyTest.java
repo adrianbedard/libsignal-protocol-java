@@ -46,7 +46,14 @@ public class ChainKeyTest extends TestCase {
     ChainKey chainKey = new ChainKey(HKDF.createFor(2), seed, 0);
 
     assertTrue(Arrays.equals(chainKey.getKey(), seed));
-    assertTrue(Arrays.equals(chainKey.getMessageKeys().getCipherKey().getEncoded(), messageKey));
+    /* ********OpenRefactory Warning********
+	 Possible null pointer Dereference!
+	 Path: 
+		File: ChainKeyTest.java, Line: 49
+			assertTrue(Arrays.equals(chainKey.getMessageKeys().getCipherKey().getEncoded(),messageKey));
+			Method getCipherKey may return null and is referenced in method invocation.
+	*/
+	assertTrue(Arrays.equals(chainKey.getMessageKeys().getCipherKey().getEncoded(), messageKey));
     assertTrue(Arrays.equals(chainKey.getMessageKeys().getMacKey().getEncoded(), macKey));
     assertTrue(Arrays.equals(chainKey.getNextChainKey().getKey(), nextChainKey));
     assertTrue(chainKey.getIndex() == 0);
