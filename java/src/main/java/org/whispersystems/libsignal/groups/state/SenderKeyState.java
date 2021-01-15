@@ -80,13 +80,11 @@ public class SenderKeyState {
   }
 
   public void setSenderChainKey(SenderChainKey chainKey) {
-    SenderKeyStateStructure.SenderChainKey senderChainKeyStructure =
-        SenderKeyStateStructure.SenderChainKey.newBuilder()
-                                              .setIteration(chainKey.getIteration())
-                                              .setSeed(ByteString.copyFrom(chainKey.getSeed()))
-                                              .build();
-
-    this.senderKeyStateStructure = senderKeyStateStructure.toBuilder()
+    
+	/* ********OpenRefactory Warning********
+	 Removed setSeed method because setting seed value makes SecureRandom Less secure.
+	*/
+	this.senderKeyStateStructure = senderKeyStateStructure.toBuilder()
                                                           .setSenderChainKey(senderChainKeyStructure)
                                                           .build();
   }
@@ -111,13 +109,11 @@ public class SenderKeyState {
   }
 
   public void addSenderMessageKey(SenderMessageKey senderMessageKey) {
-    SenderKeyStateStructure.SenderMessageKey senderMessageKeyStructure =
-        SenderKeyStateStructure.SenderMessageKey.newBuilder()
-                                                .setIteration(senderMessageKey.getIteration())
-                                                .setSeed(ByteString.copyFrom(senderMessageKey.getSeed()))
-                                                .build();
-
-    SenderKeyStateStructure.Builder builder = this.senderKeyStateStructure.toBuilder();
+    
+	/* ********OpenRefactory Warning********
+	 Removed setSeed method because setting seed value makes SecureRandom Less secure.
+	*/
+	SenderKeyStateStructure.Builder builder = this.senderKeyStateStructure.toBuilder();
 
     builder.addSenderMessageKeys(senderMessageKeyStructure);
 
