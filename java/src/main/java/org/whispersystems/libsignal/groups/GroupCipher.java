@@ -130,7 +130,17 @@ public class GroupCipher {
 
         SenderMessageKey senderKey = getSenderKey(senderKeyState, senderKeyMessage.getIteration());
 
-        byte[] plaintext = getPlainText(senderKey.getIv(), senderKey.getCipherKey(), senderKeyMessage.getCipherText());
+        /* ********OpenRefactory Warning********
+		 Possible null pointer Dereference!
+		 Path: 
+			File: GroupCipher.java, Line: 131
+				SenderMessageKey senderKey=getSenderKey(senderKeyState,senderKeyMessage.getIteration());
+		
+			File: GroupCipher.java, Line: 133
+				byte[] plaintext=getPlainText(senderKey.getIv(),senderKey.getCipherKey(),senderKeyMessage.getCipherText());
+				senderKey is referenced in method invocation.
+		*/
+		byte[] plaintext = getPlainText(senderKey.getIv(), senderKey.getCipherKey(), senderKeyMessage.getCipherText());
 
         callback.handlePlaintext(plaintext);
 
