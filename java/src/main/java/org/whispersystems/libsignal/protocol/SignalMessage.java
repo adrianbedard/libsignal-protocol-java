@@ -128,7 +128,23 @@ public class SignalMessage implements CiphertextMessage {
       Mac mac = Mac.getInstance("HmacSHA256");
       mac.init(macKey);
 
-      mac.update(senderIdentityKey.getPublicKey().serialize());
+      /* ********OpenRefactory Warning********
+	 Possible null pointer Dereference!
+	 Path: 
+		File: SessionCipher.java, Line: 313
+			ciphertextMessage.verifyMac(sessionState.getRemoteIdentityKey(),sessionState.getLocalIdentityKey(),messageKeys.getMacKey());
+			 Information is passed through the method call via sessionState.getRemoteIdentityKey() to the formal param senderIdentityKey of the method. This later results into a null pointer dereference.
+		File: SignalMessage.java, Line: 111
+			IdentityKey senderIdentityKey
+			Variable senderIdentityKey is declared as a formal parameter.
+		File: SignalMessage.java, Line: 115
+			byte[] ourMac=getMac(senderIdentityKey,receiverIdentityKey,macKey,parts[0]);
+			 Information is passed through the method call via senderIdentityKey to the formal param senderIdentityKey of the method. This later results into a null pointer dereference.
+		File: SignalMessage.java, Line: 131
+			mac.update(senderIdentityKey.getPublicKey().serialize());
+			senderIdentityKey is referenced in method invocation.
+	*/
+	mac.update(senderIdentityKey.getPublicKey().serialize());
       mac.update(receiverIdentityKey.getPublicKey().serialize());
 
       byte[] fullMac = mac.doFinal(serialized);
