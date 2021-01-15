@@ -248,7 +248,14 @@ public class RatchetingSessionTest extends TestCase {
     RatchetingSession.initializeSession(session, parameters);
 
     assertTrue(session.getLocalIdentityKey().equals(aliceIdentityKey.getPublicKey()));
-    assertTrue(session.getRemoteIdentityKey().equals(bobIdentityKey));
+    /* ********OpenRefactory Warning********
+	 Possible null pointer Dereference!
+	 Path: 
+		File: RatchetingSessionTest.java, Line: 251
+			assertTrue(session.getRemoteIdentityKey().equals(bobIdentityKey));
+			Method getRemoteIdentityKey may return null and is referenced in method invocation.
+	*/
+	assertTrue(session.getRemoteIdentityKey().equals(bobIdentityKey));
     assertTrue(Arrays.equals(session.getReceiverChainKey(bobEphemeralPublicKey).getKey(),
                              receiverChain));
 
