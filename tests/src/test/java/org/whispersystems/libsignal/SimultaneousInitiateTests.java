@@ -12,9 +12,8 @@ import org.whispersystems.libsignal.state.PreKeyBundle;
 import org.whispersystems.libsignal.state.PreKeyRecord;
 import org.whispersystems.libsignal.state.SignedPreKeyRecord;
 import org.whispersystems.libsignal.util.Medium;
-
+import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.Random;
 
 public class SimultaneousInitiateTests extends TestCase {
 
@@ -453,7 +452,7 @@ public class SimultaneousInitiateTests extends TestCase {
 
   private PreKeyBundle createAlicePreKeyBundle(SignalProtocolStore aliceStore) throws InvalidKeyException {
     ECKeyPair aliceUnsignedPreKey   = Curve.generateKeyPair();
-    int       aliceUnsignedPreKeyId = new Random().nextInt(Medium.MAX_VALUE);
+    int       aliceUnsignedPreKeyId = new SecureRandom().nextInt(Medium.MAX_VALUE);
     byte[]    aliceSignature        = Curve.calculateSignature(aliceStore.getIdentityKeyPair().getPrivateKey(),
                                                                aliceSignedPreKey.getPublicKey().serialize());
 

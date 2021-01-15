@@ -45,13 +45,11 @@ public class SenderKeyState {
                         ECPublicKey signatureKeyPublic,
                         Optional<ECPrivateKey> signatureKeyPrivate)
   {
-    SenderKeyStateStructure.SenderChainKey senderChainKeyStructure =
-        SenderKeyStateStructure.SenderChainKey.newBuilder()
-                                              .setIteration(iteration)
-                                              .setSeed(ByteString.copyFrom(chainKey))
-                                              .build();
-
-    SenderKeyStateStructure.SenderSigningKey.Builder signingKeyStructure =
+    
+	/* ********OpenRefactory Warning********
+	 Removed setSeed method because setting seed value makes SecureRandom Less secure.
+	*/
+	SenderKeyStateStructure.SenderSigningKey.Builder signingKeyStructure =
         SenderKeyStateStructure.SenderSigningKey.newBuilder()
                                                 .setPublic(ByteString.copyFrom(signatureKeyPublic.serialize()));
 
